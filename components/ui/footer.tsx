@@ -53,7 +53,7 @@ export function Footer() {
         About
     </Link>
     <Link
-        href="/portfolio"
+        href="/gallery"
         className="text-zinc-600 transition-colors hover:text-[#8B0000]"
     >
         Portfolio

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Menu } from "@/components/ui/menu";
 import { Footer } from "@/components/ui/footer";
+import { HoverCarousel } from "@/components/ui/hoverCarousel";
 
 export function Landing() {
   return (
@@ -37,25 +38,8 @@ export function Landing() {
         </motion.p>
       </section>
 
-      {/* Gallery Preview */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-4 p-6 max-w-6xl">
-        {[1, 2, 3, 4, 5, 6].map((num) => (
-          <motion.div
-            key={num}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: num * 0.1 }}
-            className="relative group overflow-hidden rounded-lg"
-          >
-            <Image
-              src={`/images/photo${num}.jpg`}
-              alt={`Photo ${num}`}
-              width={500}
-              height={350}
-              className="w-full h-auto object-cover rounded-lg transition-transform transform group-hover:scale-105"
-            />
-          </motion.div>
-        ))}
+      <section className="w-full max-w-6xl pb-6">
+        <HoverCarousel/>
       </section>
 
       <Footer />

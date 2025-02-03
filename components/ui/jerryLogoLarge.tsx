@@ -14,8 +14,8 @@ export const JerryLogo: FC<JerryLogoProps> = ({ className }) => (
       className="text-6xl font-semibold tracking-tight flex items-center"
     >
       Jerry
-      <span className="ml-1 text-[#8B0000] transition-colors">x</span>
-      <span className="ml-1 text-[#B22222] transition-colors">Zhang</span>
+      <span className="ml-1 text-[#911313] transition-colors">x</span>
+      <span className="ml-1 text-[#8B0000] transition-colors">Zhang</span>
     </motion.span>
   </Link>
 );
