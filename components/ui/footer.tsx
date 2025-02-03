@@ -27,10 +27,10 @@ export function Footer() {
             <Link href="mailto:jerryzhangchartwell@gmail.com" className="hover:text-[#8B0000] transition">
             <Mail size={22} className="text-gray-600" />
             </Link>
-            <Link href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank" className="hover:text-[#8B0000] transition">
+            <Link href="https://www.linkedin.com/in/jerryxuzhizhang/" target="_blank" className="hover:text-[#8B0000] transition">
             <Linkedin size={22} className="text-gray-600" />
             </Link>
-            <Link href="https://instagram.com/YOUR_INSTAGRAM" target="_blank" className="hover:text-[#8B0000] transition">
+            <Link href="https://www.instagram.com/jxz_photography/" target="_blank" className="hover:text-[#8B0000] transition">
             <Instagram size={22} className="text-gray-600" />
             </Link>
         </div>
