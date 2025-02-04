@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -12,11 +13,11 @@ interface Folder {
 
 export function HoverCarousel() {
   const [folders, setFolders] = useState<Folder[]>([]);
-  const [activeImage, setActiveImage] = useState<string | null>(null);
-  const [imageSize, setImageSize] = useState<{ width: number; height: number }>({
-    width: 800,
-    height: 600,
-  });
+  const [activeFolder, setActiveFolder] = useState<Folder | null>(null);
+  const [hoveredImage, setHoveredImage] = useState<string | null>(null);
+  const [imageSize, setImageSize] = useState<{ width: number; height: number }>({ width: 800, height: 600 });
+
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchFolders() {
@@ -24,8 +25,10 @@ export function HoverCarousel() {
         const res = await fetch("/api/covers");
         const data: Folder[] = await res.json();
         setFolders(data);
-        setActiveImage(data[0]?.mainImage || null);
-        if (data[0]?.mainImage) updateImageSize(data[0]?.mainImage);
+        if (data.length > 0) {
+          setActiveFolder(data[0]);
+          updateImageSize(data[0].mainImage);
+        }
       } catch (error) {
         console.error("Error fetching folders:", error);
       }
@@ -34,50 +37,108 @@ export function HoverCarousel() {
   }, []);
 
   const updateImageSize = async (imageUrl: string) => {
-    const img = new Image();
+    const img = new window.Image();
     img.src = imageUrl;
     img.onload = () => {
       setImageSize({ width: img.width, height: img.height });
     };
   };
 
+  const handleImageClick = () => {
+    if (activeFolder) {
+      const formattedName = activeFolder.name.replace(/\s+/g, "-").toLowerCase();
+      router.push(`/gallery/#${formattedName}`);
+    }
+  };
+
   return (
-    <div className="flex w-full h-screen p-6 items-center justify-center">
-      {/* Spotlight Image */}
+    <>
+    <div className="relative flex md:flex-row w-full mx-auto h-[80vh] md:h-[100vh] p-6 items-center justify-between overflow-hidden">
       <motion.div
-        key={activeImage}
+        key={activeFolder?.id || hoveredImage}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="relative max-w-full max-h-full flex justify-center items-center"
-        style={{ width: imageSize.width, height: imageSize.height }}
+        className="relative flex-grow flex justify-center items-center cursor-pointer"
+        style={{
+          maxWidth: "100%",
+          maxHeight: "100%",
+          width: `${imageSize.width}px`,
+          height: `${imageSize.height}px`,
+        }}
+        onClick={handleImageClick}
       >
-        {activeImage && (
-          <Image
-            src={activeImage}
-            alt="Highlighted Folder Image"
-            width={imageSize.width}
-            height={imageSize.height}
-            className="rounded-lg"
-          />
+        {activeFolder?.mainImage && (
+          <div className="relative w-full h-full flex justify-center items-center">
+            <Image
+              src={hoveredImage || activeFolder.mainImage}
+              alt="Highlighted Folder Image"
+              width={imageSize.width}
+              height={imageSize.height}
+              className="object-contain"
+              style={{
+                maxWidth: "100%",
+                maxHeight: "100%",
+              }}
+            />
+          </div>
         )}
       </motion.div>
 
-      {/* Folder Names (on the right side) */}
-      <div className="flex flex-col justify-center items-end w-1/4 gap-4 p-6">
-        {folders.map((folder) => (
-          <button
-            key={folder.id}
-            onMouseEnter={() => {
-              setActiveImage(folder.mainImage);
-              updateImageSize(folder.mainImage);
-            }}
-            className="text-xl font-medium text-gray-300 hover:text-white transition-colors text-right"
-          >
-            {folder.name}
-          </button>
-        ))}
+      {/* Vertical Scroll for Web (Side Scroll) */}
+      <div className="w-[20%] h-full overflow-y-scroll mt-4 p-6 md:block hidden">
+        <div className="flex flex-col space-y-4">
+          {folders.map((folder) => (
+            <div
+              key={folder.id}
+              onMouseEnter={() => setHoveredImage(folder.mainImage)}
+              onMouseLeave={() => setHoveredImage(null)}
+              onClick={() => {
+                setActiveFolder(folder);
+                setHoveredImage(null);
+                updateImageSize(folder.mainImage);
+              }}
+              className="w-[150px] h-[150px] cursor-pointer"
+            >
+              <Image
+                src={folder.mainImage}
+                alt={folder.name}
+                width={150}
+                height={150}
+                className="object-cover w-full h-full rounded-md"
+              />
+            </div>
+          ))}
+        </div>
       </div>
+
     </div>
+          {/* Horizontal Scroll for Mobile (Bottom Scroll) */}
+          <div className="md:hidden w-full mt-4 overflow-x-scroll py-2">
+          <div className="flex space-x-4">
+            {folders.map((folder) => (
+              <div
+                key={folder.id}
+                onMouseEnter={() => setHoveredImage(folder.mainImage)}
+                onMouseLeave={() => setHoveredImage(null)}
+                onClick={() => {
+                  setActiveFolder(folder);
+                  setHoveredImage(null);
+                  updateImageSize(folder.mainImage);
+                }}
+                className="flex-shrink-0 w-[150px] h-[100px] cursor-pointer"
+              >
+                <Image
+                  src={folder.mainImage}
+                  alt={folder.name}
+                  width={150}
+                  height={100}
+                  className="object-cover w-full h-full rounded-md"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+</>  
   );
 }

@@ -19,7 +19,7 @@ export function Landing() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative w-full h-screen flex flex-col justify-center items-center text-center">
+      <section className="relative w-full h-screen flex flex-col justify-center items-center text-center p-6">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -38,7 +38,7 @@ export function Landing() {
         </motion.p>
       </section>
 
-      <section className="w-full max-w-6xl pb-6">
+      <section className="w-full pb-6">
         <HoverCarousel/>
       </section>
 
