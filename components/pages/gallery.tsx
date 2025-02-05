@@ -6,25 +6,12 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Menu } from "@/components/ui/menu";
 import { Footer } from "@/components/ui/footer";
-
-const galleryPath = "/gallery";
-
-// Fetch images from the API
-async function fetchGalleryImages(): Promise<Record<string, string[]>> {
-  const res = await fetch("/api/gallery");
-  if (!res.ok) return {};
-  return await res.json();
-}
+import projects from "@/lib/galleryData"; // Import the static gallery data
 
 export function Gallery() {
-  const [projects, setProjects] = useState<Record<string, string[]>>({});
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [currentFolder, setCurrentFolder] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
-
-  useEffect(() => {
-    fetchGalleryImages().then(setProjects);
-  }, []);
 
   useEffect(() => {
     // Function to scroll to the correct section
@@ -36,7 +23,6 @@ export function Gallery() {
           setTimeout(() => {
             const yOffset = -80; // Adjust for sticky headers or extra padding
             const yPosition = element.getBoundingClientRect().top + window.scrollY + yOffset;
-
             window.scrollTo({ top: yPosition, behavior: "smooth" });
           }, 500); // Ensures content is fully loaded before scrolling
         }
@@ -44,10 +30,8 @@ export function Gallery() {
     };
 
     // Wait until the gallery is populated before scrolling
-    if (Object.keys(projects).length > 0) {
-      requestAnimationFrame(scrollToSection);
-    }
-  }, [projects]); // Runs when projects are loaded
+    requestAnimationFrame(scrollToSection);
+  }, []); // Runs once on mount
 
   const openImage = (folder: string, index: number) => {
     setCurrentFolder(folder);
@@ -73,7 +57,7 @@ export function Gallery() {
         setSelectedImage(images[newIndex]);
       }
     },
-    [currentFolder, currentIndex, projects]
+    [currentFolder, currentIndex]
   );
 
   useEffect(() => {
@@ -194,4 +178,3 @@ export function Gallery() {
     </motion.main>
   );
 }
-
