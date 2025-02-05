@@ -97,7 +97,9 @@ export function Writing() {
           }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
+          
           {articles.map((article, index) => (
+                    <Link href={article.link}>
             <motion.div
               key={index}
               variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
@@ -114,10 +116,12 @@ export function Writing() {
               />
               <h2 className="text-xl font-semibold mt-3">{article.title}</h2>
               <p className="mt-2">{article.description}</p>
-              <Link href={article.link} className="text-[#8B0000] mt-3 inline-block hover:underline">
+              <p className="text-[#8B0000] mt-3 inline-block hover:underline">
                 Read More
-              </Link>
+              </p>
             </motion.div>
+            </Link>
+
           ))}
         </motion.div>
       </section>
