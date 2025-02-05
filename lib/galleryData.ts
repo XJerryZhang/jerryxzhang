@@ -13,7 +13,7 @@ const categories: Record<string, number> = {
   "Japan 2019": 18,
   "Landscapes": 7,
   "Lion Dance": 28,
-  "MengHua Studio": 3,
+  "MengHua Street": 3,
   "Porters": 19,
   "Porters 2": 14,
   "Portraits": 16,
