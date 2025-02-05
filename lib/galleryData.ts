@@ -16,7 +16,7 @@ const categories: Record<string, number> = {
   "MengHua Street": 30,
   "Porters": 19,
   "Porters 2": 14,
-  "Portraits": 16,
+  "Portraits": 15,
   "Product": 2,
   "River Swimmer": 36,
   "University Projects": 10,
