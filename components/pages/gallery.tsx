@@ -74,7 +74,7 @@ export function Gallery() {
         <Menu />
       </header>
 
-      <section className="max-w-7xl mx-auto">
+      <section className="max-w-7xl mx-auto px-6">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -84,54 +84,35 @@ export function Gallery() {
           Gallery
         </motion.h1>
 
-        {Object.entries(projects).map(([folderName, images], index) => {
-          const sectionId = folderName.replace(/\s+/g, "-").toLowerCase();
-          return (
-            <motion.div
-              key={folderName}
-              id={sectionId}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="mb-10 p-6"
-            >
-              <Link href={`#${sectionId}`} className="no-underline">
-                <h2 className="text-2xl font-semibold mb-4 capitalize cursor-pointer hover:underline">
-                  {folderName}
-                </h2>
-              </Link>
+        {Object.entries(projects).map(([folderName, images], index) => (
+          <motion.div
+            key={folderName}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+            className="mb-10"
+          >
+            <h2 className="text-2xl font-semibold mb-4 capitalize">{folderName}</h2>
 
-              <motion.div
-                initial="hidden"
-                animate="visible"
-                variants={{
-                  hidden: { opacity: 0, y: 10 },
-                  visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.1 } },
-                }}
-                className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-              >
-                {images.map((src, imgIndex) => (
-                  <motion.div
-                    key={imgIndex}
-                    variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                    className="relative cursor-pointer"
-                    onClick={() => openImage(folderName, imgIndex)}
-                  >
-                    <Image
-                      src={src}
-                      alt={`Gallery Image ${imgIndex + 1}`}
-                      width={500}
-                      height={500}
-                      className="object-cover w-full h-auto shadow-lg rounded-lg"
-                    />
-                  </motion.div>
-                ))}
-              </motion.div>
-            </motion.div>
-          );
-        })}
+            <div className="flex flex-wrap gap-2 justify-start">
+              {images.map((src, imgIndex) => (
+                <div
+                  key={imgIndex}
+                  className="flex items-center cursor-pointer"
+                  onClick={() => openImage(folderName, imgIndex)}
+                >
+                  <Image
+                    src={src}
+                    alt={`Gallery Image ${imgIndex + 1}`}
+                    width={500}
+                    height={300}
+                    className="h-[180px] w-auto object-cover rounded-md shadow-md transition-all duration-300 hover:scale-105"
+                  />
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        ))}
       </section>
 
       <Footer />
@@ -162,7 +143,6 @@ export function Gallery() {
             />
           </div>
 
-          {/* Navigation Arrows */}
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -173,7 +153,6 @@ export function Gallery() {
             →
           </button>
 
-          {/* Close Button */}
           <button
             onClick={(e) => {
               e.stopPropagation();
