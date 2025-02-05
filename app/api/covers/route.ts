@@ -21,7 +21,7 @@ export async function GET() {
       .sort(); // Sort to ensure consistency
 
     return files.length > 0
-      ? { id: folder, name: folder, mainImage: `/gallery/${folder}/${files[0]}` }
+      ? { id: folder, name: folder, mainImage: `/carousel_covers/${folder}/${files[0]}` }
       : null;
   }).filter(Boolean); // Remove null values
 
