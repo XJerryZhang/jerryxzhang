@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { Menu } from "@/components/ui/menu";
 import { Footer } from "@/components/ui/footer";
