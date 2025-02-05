@@ -26,6 +26,29 @@ export function Gallery() {
     fetchGalleryImages().then(setProjects);
   }, []);
 
+  useEffect(() => {
+    // Function to scroll to the correct section
+    const scrollToSection = () => {
+      if (typeof window !== "undefined" && window.location.hash) {
+        const sectionId = window.location.hash.replace("#", "");
+        const element = document.getElementById(sectionId);
+        if (element) {
+          setTimeout(() => {
+            const yOffset = -80; // Adjust for sticky headers or extra padding
+            const yPosition = element.getBoundingClientRect().top + window.scrollY + yOffset;
+
+            window.scrollTo({ top: yPosition, behavior: "smooth" });
+          }, 500); // Ensures content is fully loaded before scrolling
+        }
+      }
+    };
+
+    // Wait until the gallery is populated before scrolling
+    if (Object.keys(projects).length > 0) {
+      requestAnimationFrame(scrollToSection);
+    }
+  }, [projects]); // Runs when projects are loaded
+
   const openImage = (folder: string, index: number) => {
     setCurrentFolder(folder);
     setCurrentIndex(index);
@@ -84,35 +107,39 @@ export function Gallery() {
           Gallery
         </motion.h1>
 
-        {Object.entries(projects).map(([folderName, images], index) => (
-          <motion.div
-            key={folderName}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.2 }}
-            className="mb-10"
-          >
-            <h2 className="text-2xl font-semibold mb-4 capitalize">{folderName}</h2>
+        {Object.entries(projects).map(([folderName, images], index) => {
+          const sectionId = folderName.replace(/\s+/g, "-").toLowerCase(); // Convert names to IDs
+          return (
+            <motion.div
+              key={folderName}
+              id={sectionId} // Section ID for scrolling
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+              className="mb-10"
+            >
+              <h2 className="text-2xl font-semibold mb-4 capitalize">{folderName}</h2>
 
-            <div className="flex flex-wrap gap-2 justify-start">
-              {images.map((src, imgIndex) => (
-                <div
-                  key={imgIndex}
-                  className="flex items-center cursor-pointer"
-                  onClick={() => openImage(folderName, imgIndex)}
-                >
-                  <Image
-                    src={src}
-                    alt={`Gallery Image ${imgIndex + 1}`}
-                    width={500}
-                    height={300}
-                    className="h-[180px] w-auto object-cover rounded-md shadow-md transition-all duration-300 hover:scale-105"
-                  />
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        ))}
+              <div className="flex flex-wrap gap-2 justify-start">
+                {images.map((src, imgIndex) => (
+                  <div
+                    key={imgIndex}
+                    className="flex items-center cursor-pointer"
+                    onClick={() => openImage(folderName, imgIndex)}
+                  >
+                    <Image
+                      src={src}
+                      alt={`Gallery Image ${imgIndex + 1}`}
+                      width={500}
+                      height={300}
+                      className="h-[180px] w-auto object-cover rounded-md shadow-md transition-all duration-300 hover:scale-105"
+                    />
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          );
+        })}
       </section>
 
       <Footer />
@@ -167,3 +194,4 @@ export function Gallery() {
     </motion.main>
   );
 }
+
