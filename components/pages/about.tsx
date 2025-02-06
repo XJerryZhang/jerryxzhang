@@ -24,7 +24,7 @@ export function About() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="min-h-screen flex flex-col"
+      className="min-h-screen flex flex-col bg-gradient-to-b from-white to-red-200"
     >
       <Menu />
 
