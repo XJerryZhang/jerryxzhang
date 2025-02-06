@@ -10,7 +10,7 @@ import { Footer } from "@/components/ui/footer";
 
 export default function GalleryFolderPage() {
   const { folder } = useParams();
-  const [fullscreenIndex, setFullscreenIndex] = useState(null);
+  const [fullscreenIndex, setFullscreenIndex] = useState<number | null>(null);
 
   const matchingFolder = Object.keys(projects).find(
     (name) => name.replace(/\s+/g, "-").toLowerCase() === (folder as string).toLowerCase()
@@ -20,7 +20,7 @@ export default function GalleryFolderPage() {
     return <p className="text-center mt-10">Gallery not found.</p>;
   }
 
-  const images = projects[matchingFolder];
+  const images: string[] = projects[matchingFolder];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -54,14 +54,14 @@ export default function GalleryFolderPage() {
     setFullscreenIndex(null);
   }, []);
 
-  const handlePrevImage = useCallback((e: React.MouseEvent) => {
+  const handlePrevImage = useCallback((e: React.MouseEvent | KeyboardEvent) => {
     e.stopPropagation();
-    setFullscreenIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
+    setFullscreenIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : images.length - 1));
   }, [images.length]);
   
-  const handleNextImage = useCallback((e: React.MouseEvent) => {
+  const handleNextImage = useCallback((e: React.MouseEvent | KeyboardEvent) => {
     e.stopPropagation();
-    setFullscreenIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0));
+    setFullscreenIndex((prev) => (prev !== null && prev < images.length - 1 ? prev + 1 : 0));
   }, [images.length]);
   
   useEffect(() => {
@@ -70,10 +70,10 @@ export default function GalleryFolderPage() {
   
       switch (event.key) {
         case "ArrowLeft":
-          handlePrevImage(event as unknown as React.MouseEvent);
+          handlePrevImage(event);
           break;
         case "ArrowRight":
-          handleNextImage(event as unknown as React.MouseEvent);
+          handleNextImage(event);
           break;
         case "Escape":
           handleFullscreenClose();
@@ -133,7 +133,7 @@ export default function GalleryFolderPage() {
           onClick={handleFullscreenClose}
         >
           <button 
-            onClick={handlePrevImage} 
+            onClick={(e) => handlePrevImage(e as React.MouseEvent)}
             className="absolute left-4 text-white text-4xl hover:text-gray-300 transition-colors"
             aria-label="Previous image"
           >
@@ -150,7 +150,7 @@ export default function GalleryFolderPage() {
             />
           </div>
           <button 
-            onClick={handleNextImage} 
+            onClick={(e) => handleNextImage(e as React.MouseEvent)}
             className="absolute right-4 text-white text-4xl hover:text-gray-300 transition-colors"
             aria-label="Next image"
           >
