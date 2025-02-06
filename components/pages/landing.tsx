@@ -38,7 +38,7 @@ export function Landing() {
         </motion.p>
       </section> */}
 
-      <section className="w-full pb-6">
+      <section className="w-full p-6">
         <HoverCarousel/>
       </section>
 
