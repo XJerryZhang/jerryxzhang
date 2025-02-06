@@ -11,7 +11,7 @@ export function Footer() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="w-full p-6 mt-auto flex flex-col md:flex-row justify-between items-center px-10 space-y-6 md:space-y-0"
+      className="w-full p-6 mt-auto flex flex-col md:flex-row justify-between items-center px-10 pt-10 space-y-6 md:space-y-0"
     >
       {/* Branding */}
       <motion.div 

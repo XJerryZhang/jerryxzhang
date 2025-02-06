@@ -35,7 +35,7 @@ export function HoverCarousel() {
   const handleFolderClick = () => {
     if (activeFolder) {
       const formattedName = activeFolder.name.replace(/\s+/g, "-").toLowerCase();
-      router.push(`/gallery/#${formattedName}`);
+      router.push(`/gallery/${formattedName}`);
     }
   };
 
