@@ -16,11 +16,14 @@ export default function GalleryFolderPage() {
     (name) => name.replace(/\s+/g, "-").toLowerCase() === decodeURIComponent(folder as string).toLowerCase()
   );
 
+
   if (!matchingFolder) {
+    console.log("No matching folder found");
     return <p className="text-center mt-10">Gallery not found.</p>;
   }
 
   const images: string[] = projects[matchingFolder];
+  console.log("Images in matching folder:", images);
 
   const containerVariants = {
     hidden: { opacity: 0 },
