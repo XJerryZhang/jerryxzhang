@@ -18,7 +18,7 @@ export function Landing() {
         <Menu />
       </header>
 
-      {/* Hero Section */}
+      {/*
       <section className="relative w-full h-screen flex flex-col justify-center items-center text-center p-6">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
@@ -36,7 +36,7 @@ export function Landing() {
         >
           Capturing the human condition through <span className="text-[#8B0000]">lens & light</span>.
         </motion.p>
-      </section>
+      </section> */}
 
       <section className="w-full pb-6">
         <HoverCarousel/>
