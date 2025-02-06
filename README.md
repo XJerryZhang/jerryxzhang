@@ -85,7 +85,7 @@ export const projects = {
 ## Changing Image Order in the Galleries
 
 1. Find your gallery pictures
-2. Change the number at the end of picture names to set the order. **CRITICAL:** Use the format: Jerry_Zhang_Folder_Name-1, Jerry_Zhang_Folder_Name-2, etc.
+2. Change the number at the end of picture names to set the order. **CRITICAL:** Use the format: Jerry_Zhang_Folder_Name-1.jpg, Jerry_Zhang_Folder_Name-2.jpg, etc. It is coded specifically for jpg images in that format.
 
    **EXTRA CRITICAL:** Replace ALL spaces in the folder name with underscores (_). Example: For a folder named "Cool Photos", use "Jerry_Zhang_Cool_Photos-1"
 
