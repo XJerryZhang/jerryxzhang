@@ -13,7 +13,7 @@ export default function GalleryFolderPage() {
   const [fullscreenIndex, setFullscreenIndex] = useState<number | null>(null);
 
   const matchingFolder = Object.keys(projects).find(
-    (name) => name.replace(/\s+/g, "-").toLowerCase() === (folder as string).toLowerCase()
+    (name) => name.replace(/\s+/g, "-").toLowerCase() === decodeURIComponent(folder as string).toLowerCase()
   );
 
   if (!matchingFolder) {
