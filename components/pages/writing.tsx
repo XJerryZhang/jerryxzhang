@@ -22,7 +22,7 @@ const articles = [
   {
     title: "Trump’s tariffs and annexation plans ignite debates within TMU community",
     description: "Experts and Students discuss Trump’s tariffs plan and Canada’s potential annexation.",
-    image: "/article_covers/trump_tariffs.jpg",
+    image: "/article_covers/trump_tariffs.png",
     link: "https://theeyeopenertmu.com/2025/01/trumps-tariffs-and-annexation-plans-ignite-debates-within-tmu-community/",
   },
   {
