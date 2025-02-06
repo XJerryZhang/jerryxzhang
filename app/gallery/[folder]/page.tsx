@@ -46,43 +46,43 @@ export default function GalleryFolderPage() {
     },
   };
 
-  const handleImageClick = (index) => {
+  const handleImageClick = (index: number) => {
     setFullscreenIndex(index);
   };
-
+  
   const handleFullscreenClose = useCallback(() => {
     setFullscreenIndex(null);
   }, []);
 
-  const handlePrevImage = useCallback((e) => {
+  const handlePrevImage = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     setFullscreenIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
   }, [images.length]);
-
-  const handleNextImage = useCallback((e) => {
+  
+  const handleNextImage = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     setFullscreenIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0));
   }, [images.length]);
-
+  
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (fullscreenIndex === null) return;
-
+  
       switch (event.key) {
         case "ArrowLeft":
-          handlePrevImage(event);
+          handlePrevImage(event as unknown as React.MouseEvent);
           break;
         case "ArrowRight":
-          handleNextImage(event);
+          handleNextImage(event as unknown as React.MouseEvent);
           break;
         case "Escape":
           handleFullscreenClose();
           break;
       }
     };
-
+  
     window.addEventListener("keydown", handleKeyDown);
-
+  
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
