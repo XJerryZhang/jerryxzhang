@@ -29,7 +29,7 @@ export const Menu = () => {
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="relative w-full px-6 py-8"
+      className="relative w-full px-6 pt-8"
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         {/* Logo */}
@@ -92,6 +92,14 @@ export const Menu = () => {
             animate="animate"
             className="flex flex-col items-center space-y-6"
           >
+            <motion.div variants={fadeIn} whileHover={{ y: -2 }}>
+              <Link
+                href="/"
+                className="text-zinc-600 transition-colors hover:text-[#8B0000]"
+              >
+                Home
+              </Link>
+            </motion.div>
             <motion.div variants={fadeIn} whileHover={{ y: -2 }}>
               <Link
                 href="/about"
