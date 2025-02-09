@@ -12,7 +12,7 @@ export function Landing() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-white to-red-200"
+      className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-white via-white to-red-300"
     >
       <header className="w-full">
         <Menu />
