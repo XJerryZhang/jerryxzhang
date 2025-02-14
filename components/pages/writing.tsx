@@ -99,7 +99,7 @@ export function Writing() {
         >
           
           {articles.map((article, index) => (
-                    <Link href={article.link}>
+            <Link href={article.link} target="_blank" rel="noopener noreferrer">
             <motion.div
               key={index}
               variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}
